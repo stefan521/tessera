@@ -9,83 +9,45 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+
+    let square = SKSpriteNode(color: NSColor.systemPink, size: CGSize.init(width: 40, height: 40))
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
-    
+
     override func didMove(to view: SKView) {
         
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
-        }
+        //private var board: SKSpriteNode?
+        //        self.board = self.childNode(withName: "//board") as? SKSpriteNode
+        //        if let brd = self.board {
+        //            self.board?.physicsBody = SKPhysicsBody.init(edgeLoopFrom: brd.frame)
+        //        }
+    
+
+        let pb = SKPhysicsBody.init(rectangleOf: CGSize.init(width: 40, height: 40))
+        pb.restitution = 0
+        pb.allowsRotation = false
+        square.physicsBody = pb;
+        square.position = CGPoint(x: 0, y: frame.maxY - 40)
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+        physicsWorld.gravity = CGVector(dx: 0, dy: -0.10)
+        physicsBody = SKPhysicsBody.init(edgeLoopFrom: frame)
+
+        addChild(square)
     }
-    
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func mouseDown(with event: NSEvent) {
-        self.touchDown(atPoint: event.location(in: self))
-    }
-    
-    override func mouseDragged(with event: NSEvent) {
-        self.touchMoved(toPoint: event.location(in: self))
-    }
-    
-    override func mouseUp(with event: NSEvent) {
-        self.touchUp(atPoint: event.location(in: self))
-    }
-    
+
     override func keyDown(with event: NSEvent) {
         switch event.keyCode {
-        case 0x31:
-            if let label = self.label {
-                label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        case 0x2:
+            if (square.position.x <= 80) {
+                square.position = CGPoint(x: square.position.x + 40, y: square.position.y)
             }
+            print(square.position)
+        case 0x0:
+            if (square.position.x >= -279) {
+                square.position = CGPoint(x: square.position.x - 40, y: square.position.y)
+            }
+            print(square.position)
         default:
             print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
         }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
     }
 }
