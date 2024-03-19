@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD7E6F272BA974C9000BAE01 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7E6F262BA974C9000BAE01 /* Square.swift */; };
+		CD7E6F2A2BA9769A000BAE01 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD7E6F292BA9769A000BAE01 /* Constants.swift */; };
 		CDDAAE0C2BA7454000831FC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDAAE0B2BA7454000831FC7 /* AppDelegate.swift */; };
 		CDDAAE0E2BA7454000831FC7 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = CDDAAE0D2BA7454000831FC7 /* GameScene.sks */; };
 		CDDAAE102BA7454000831FC7 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = CDDAAE0F2BA7454000831FC7 /* Actions.sks */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD7E6F262BA974C9000BAE01 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
+		CD7E6F292BA9769A000BAE01 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CDDAAE082BA7454000831FC7 /* tessera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tessera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDAAE0B2BA7454000831FC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDDAAE0D2BA7454000831FC7 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -78,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD7E6F282BA97665000BAE01 /* game */ = {
+			isa = PBXGroup;
+			children = (
+				CD7E6F262BA974C9000BAE01 /* Square.swift */,
+				CD7E6F292BA9769A000BAE01 /* Constants.swift */,
+			);
+			path = game;
+			sourceTree = "<group>";
+		};
 		CDDAADFF2BA7454000831FC7 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +114,7 @@
 		CDDAAE0A2BA7454000831FC7 /* tessera */ = {
 			isa = PBXGroup;
 			children = (
+				CD7E6F282BA97665000BAE01 /* game */,
 				CDDAAE0B2BA7454000831FC7 /* AppDelegate.swift */,
 				CDDAAE0D2BA7454000831FC7 /* GameScene.sks */,
 				CDDAAE0F2BA7454000831FC7 /* Actions.sks */,
@@ -262,6 +276,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD7E6F2A2BA9769A000BAE01 /* Constants.swift in Sources */,
+				CD7E6F272BA974C9000BAE01 /* Square.swift in Sources */,
 				CDDAAE142BA7454000831FC7 /* ViewController.swift in Sources */,
 				CDDAAE122BA7454000831FC7 /* GameScene.swift in Sources */,
 				CDDAAE0C2BA7454000831FC7 /* AppDelegate.swift in Sources */,
