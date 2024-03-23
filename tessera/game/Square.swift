@@ -12,11 +12,11 @@ class Square: SKSpriteNode {
     private let height: Int = TILE_SIZE * 2
     private var xPosition: Int = -120
 
-    func initialisePiece() {
-        self.color = NSColor.magenta
+    func initialisePiece(topY: CGFloat) {
+        self.color = NSColor.systemPink
         self.size = CGSize(width: width, height: height)
         setPhyisics()
-        setPositionTopOfScreen()
+        setPositionTopOfScreen(topY: topY)
     }
 
     func moveLeft() {
@@ -35,14 +35,17 @@ class Square: SKSpriteNode {
         }
     }
 
-    private func setPositionTopOfScreen() {
-        self.position = CGPoint(x: CGFloat(Float(xPosition)), y: frame.maxY - CGFloat(Float(height)))
+    private func setPositionTopOfScreen(topY: CGFloat) {
+        self.position = CGPoint(x: CGFloat(Float(xPosition)), y: topY - CGFloat(Float(height)))
     }
 
     private func setPhyisics() {
-        let pshysicsBody = SKPhysicsBody.init(rectangleOf: self.frame.size)
-        pshysicsBody.restitution = 0
-        pshysicsBody.allowsRotation = false
-        self.physicsBody = pshysicsBody;
+        let squarePshysicsBody = SKPhysicsBody.init(rectangleOf: self.frame.size)
+        squarePshysicsBody.restitution = 0.0
+        squarePshysicsBody.allowsRotation = false
+        squarePshysicsBody.categoryBitMask = BitMask.FallingPiece
+        squarePshysicsBody.contactTestBitMask = BitMask.All
+        squarePshysicsBody.velocity = CGVectorMake(0, -100)
+        self.physicsBody = squarePshysicsBody;
     }
 }

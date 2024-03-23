@@ -14,3 +14,9 @@ let SCORE_PANEL_WIDTH: CGFloat = 200.0
 let SCORE_PANEL_HEIGHT: CGFloat  = WINDOW_HEIGHT
 let MIN_X: CGFloat = -WINDOW_WIDTH / 2
 let MAX_X: CGFloat = WINDOW_WIDTH / 2 - SCORE_PANEL_WIDTH
+
+struct BitMask {
+    static let FallingPiece: UInt32 = 0x1
+    static let Static: UInt32 = 0x1 << 1
+    static let All: UInt32 = UInt32.max
+}
