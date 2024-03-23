@@ -13,10 +13,19 @@ class Square: SKSpriteNode {
     private var xPosition: Int = -120
 
     func initialisePiece(topY: CGFloat) {
-        self.color = NSColor.systemPink
+        self.color = NSColor.orange
         self.size = CGSize(width: width, height: height)
         setPhyisics()
         setPositionTopOfScreen(topY: topY)
+    }
+    
+    func stopPiece() {
+        self.physicsBody?.categoryBitMask = BitMask.Static
+        self.physicsBody?.isDynamic = false
+    }
+    
+    func isAtTheTop(topY: CGFloat) -> Bool {
+        return self.position.y >= topY - CGFloat(Float(height))
     }
 
     func moveLeft() {
@@ -40,12 +49,15 @@ class Square: SKSpriteNode {
     }
 
     private func setPhyisics() {
-        let squarePshysicsBody = SKPhysicsBody.init(rectangleOf: self.frame.size)
+        //  90% of width so it doesn't touch other pieces laterally
+        let size = CGSizeMake(self.frame.width * 0.9, self.frame.height)
+        let squarePshysicsBody = SKPhysicsBody.init(rectangleOf: size)
         squarePshysicsBody.restitution = 0.0
         squarePshysicsBody.allowsRotation = false
         squarePshysicsBody.categoryBitMask = BitMask.FallingPiece
         squarePshysicsBody.contactTestBitMask = BitMask.All
-        squarePshysicsBody.velocity = CGVectorMake(0, -100)
+        squarePshysicsBody.velocity = Velocity.Slow
+        squarePshysicsBody.usesPreciseCollisionDetection = true
         self.physicsBody = squarePshysicsBody;
     }
 }

@@ -20,3 +20,8 @@ struct BitMask {
     static let Static: UInt32 = 0x1 << 1
     static let All: UInt32 = UInt32.max
 }
+
+struct Velocity {
+    static let Fast = CGVectorMake(0, -400)
+    static let Slow = CGVectorMake(0, -100)
+}
