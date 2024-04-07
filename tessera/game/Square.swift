@@ -15,13 +15,12 @@ class Square: SKSpriteNode {
     func initialisePiece(topY: CGFloat) {
         self.color = NSColor.orange
         self.size = CGSize(width: width, height: height)
-        setPhyisics()
         setPositionTopOfScreen(topY: topY)
     }
     
     func stopPiece() {
-        self.physicsBody?.categoryBitMask = BitMask.Static
-        self.physicsBody?.isDynamic = false
+//        self.physicsBody?.categoryBitMask = BitMask.Static
+//        self.physicsBody?.isDynamic = false
     }
     
     func isAtTheTop(topY: CGFloat) -> Bool {
@@ -46,18 +45,5 @@ class Square: SKSpriteNode {
 
     private func setPositionTopOfScreen(topY: CGFloat) {
         self.position = CGPoint(x: CGFloat(Float(xPosition)), y: topY - CGFloat(Float(height)))
-    }
-
-    private func setPhyisics() {
-        //  90% of width so it doesn't touch other pieces laterally
-        let size = CGSizeMake(self.frame.width * 0.9, self.frame.height)
-        let squarePshysicsBody = SKPhysicsBody.init(rectangleOf: size)
-        squarePshysicsBody.restitution = 0.0
-        squarePshysicsBody.allowsRotation = false
-        squarePshysicsBody.categoryBitMask = BitMask.FallingPiece
-        squarePshysicsBody.contactTestBitMask = BitMask.All
-        squarePshysicsBody.velocity = Velocity.Slow
-        squarePshysicsBody.usesPreciseCollisionDetection = true
-        self.physicsBody = squarePshysicsBody;
     }
 }

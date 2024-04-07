@@ -8,9 +8,13 @@
 import SpriteKit
 import GameplayKit
 
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
     var currentPiece: Square?
+
+    // Make the matrix here to store the board state
+    // Pieces should be made of individual suqares so it is easier to remove them later.
     
     func isGameOver() -> Bool {
         if let piece = currentPiece {
@@ -20,7 +24,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func stopGame() {
+    public func stopGame() {
         let shadeNode = SKSpriteNode(color: NSColor.black.withAlphaComponent(0.5), size: frame.size)
         let gameOverLabel = SKLabelNode(text: "ΓΑΜΕ OβΕΡ")
         gameOverLabel.fontName = "AvenirNext-Bold"
@@ -29,6 +33,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(gameOverLabel)
     }
     
+    public func printHello() -> () {
+        print("Helloooo")
+    }
+
+    func startGame() {
+        let makeNextFrameAction: SKAction = SKAction.run { self.printHello() }
+        let waitAction: SKAction = SKAction.wait(forDuration: 0.25)
+        let gameLoopActions: SKAction = SKAction.repeatForever(SKAction.sequence([makeNextFrameAction, waitAction]))
+        self.run(gameLoopActions)
+    }
+    
+    // Remove the action from the current node and add a fast one (0.25)
+    func speedUp() {
+        
+    }
+    
+    // Remove the wait action form the current node and add a slow one (0.5)
+    func slowDown() {
+        
+    }
+    
+    /*
+     check if the piece touched the ground or something solid.
+     - if yes then evaluate logic to delete row, game over, then make new piece
+     - if no then move piece down
+     */
+    func nextFrame() {
+        
+    }
+
     func nextPiece() {
         currentPiece?.stopPiece()
         
@@ -43,24 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     override func didMove(to view: SKView) {
-
-        //private var board: SKSpriteNode?
-        //        self.board = self.childNode(withName: "//board") as? SKSpriteNode
-        //        if let brd = self.board {
-        //            self.board?.physicsBody = SKPhysicsBody.init(edgeLoopFrom: brd.frame)
-        //        }
-        let startPoint = CGPoint(x: frame.minX, y: frame.minY)
-        let endPoint = CGPoint(x: frame.maxX, y: frame.minY)
-        let pb = SKPhysicsBody(edgeFrom: startPoint, to: endPoint)
-
-        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-        pb.restitution = 0.0
-        pb.categoryBitMask = BitMask.Static
-        pb.contactTestBitMask = BitMask.All
-        physicsBody = pb
-        physicsWorld.contactDelegate = self
-
-        nextPiece()
+        startGame()
     }
 
     override func keyDown(with event: NSEvent) {
@@ -74,7 +91,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 0x0: // A
             currentPiece?.moveLeft()
         case 0x1: // S
-            currentPiece?.physicsBody?.velocity = Velocity.Fast
+//            currentPiece?.physicsBody?.velocity = Velocity.Fast
+            break;
         default:
 //            print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
             break;
@@ -84,20 +102,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func keyUp(with event: NSEvent) {
         switch event.keyCode {
         case 0x01: // S
-            currentPiece?.physicsBody?.velocity = Velocity.Slow
+//            currentPiece?.physicsBody?.velocity = Velocity.Slow
+            break;
         default:
             break;
-        }
-    }
-
-    func didBegin(_ contact: SKPhysicsContact) {
-        let contactMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-
-        switch contactMask {
-        case BitMask.FallingPiece | BitMask.Static:
-            nextPiece()
-        default:
-            break
         }
     }
 }
