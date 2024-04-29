@@ -7,7 +7,8 @@
 
 import SpriteKit
 
-class Square: SKSpriteNode {
+class Square: SKSpriteNode, Piece {
+    
     private let width: Int = TILE_SIZE * 2
     private let height: Int = TILE_SIZE * 2
     private var xPosition: Int = -120
@@ -16,15 +17,6 @@ class Square: SKSpriteNode {
         self.color = NSColor.orange
         self.size = CGSize(width: width, height: height)
         setPositionTopOfScreen(topY: topY)
-    }
-    
-    func stopPiece() {
-//        self.physicsBody?.categoryBitMask = BitMask.Static
-//        self.physicsBody?.isDynamic = false
-    }
-    
-    func isAtTheTop(topY: CGFloat) -> Bool {
-        return self.position.y >= topY - CGFloat(Float(height))
     }
 
     func moveLeft() {
@@ -41,6 +33,18 @@ class Square: SKSpriteNode {
             self.xPosition = newXPosition
             self.position = CGPoint(x: CGFloat(Float(newXPosition)), y: self.position.y)
         }
+    }
+
+    func moveDown() {
+        
+    }
+
+    func madeContact() -> Bool {
+        return false
+    }
+
+    func rotate() {
+    
     }
 
     private func setPositionTopOfScreen(topY: CGFloat) {

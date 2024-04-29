@@ -11,17 +11,13 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
-    var currentPiece: Square?
+    var board: Board = Board()
 
     // Make the matrix here to store the board state
     // Pieces should be made of individual suqares so it is easier to remove them later.
     
     func isGameOver() -> Bool {
-        if let piece = currentPiece {
-            return piece.isAtTheTop(topY: frame.maxY)
-        } else {
-            return false
-        }
+        return false
     }
     
     public func stopGame() {
@@ -38,6 +34,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
 
     func startGame() {
+        board.initialiseBoard()
+        addChild(board)
         let makeNextFrameAction: SKAction = SKAction.run { self.printHello() }
         let waitAction: SKAction = SKAction.wait(forDuration: 0.25)
         let gameLoopActions: SKAction = SKAction.repeatForever(SKAction.sequence([makeNextFrameAction, waitAction]))
@@ -48,32 +46,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func speedUp() {
         
     }
-    
+
     // Remove the wait action form the current node and add a slow one (0.5)
     func slowDown() {
         
     }
-    
-    /*
-     check if the piece touched the ground or something solid.
-     - if yes then evaluate logic to delete row, game over, then make new piece
-     - if no then move piece down
-     */
+
     func nextFrame() {
         
-    }
-
-    func nextPiece() {
-        currentPiece?.stopPiece()
-        
-        if (isGameOver()) {
-            stopGame()
-        } else {
-            let piece: Square = Square()
-            piece.initialisePiece(topY: frame.maxY)
-            currentPiece = piece
-            addChild(piece)
-        }
     }
 
     override func didMove(to view: SKView) {
@@ -87,11 +67,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         switch event.keyCode {
         case 0x2: // D
-            currentPiece?.moveRight()
+            board.moveRight()
+            break;
         case 0x0: // A
-            currentPiece?.moveLeft()
+            board.moveLeft()
+            break;
         case 0x1: // S
-//            currentPiece?.physicsBody?.velocity = Velocity.Fast
+            speedUp()
             break;
         default:
 //            print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
@@ -102,7 +84,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func keyUp(with event: NSEvent) {
         switch event.keyCode {
         case 0x01: // S
-//            currentPiece?.physicsBody?.velocity = Velocity.Slow
+            slowDown()
             break;
         default:
             break;
