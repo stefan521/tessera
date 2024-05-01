@@ -8,35 +8,27 @@
 import SpriteKit
 
 class Square: SKSpriteNode, Piece {
-    
-    private let width: Int = TILE_SIZE * 2
-    private let height: Int = TILE_SIZE * 2
-    private var xPosition: Int = -120
 
     func initialisePiece(topY: CGFloat) {
-        self.color = NSColor.orange
-        self.size = CGSize(width: width, height: height)
+        self.color = NSColor.black
+        self.size = CGSize(width: CGFloat(10), height: CGFloat(10))
         setPositionTopOfScreen(topY: topY)
     }
 
     func moveLeft() {
-        if (self.position.x > MIN_X + CGFloat(width)) {
-            let newXPosition = xPosition - width
-            self.xPosition = newXPosition
-            self.position = CGPoint(x: CGFloat(Float(newXPosition)), y: self.position.y)
-        }
+//        if (self.position.x > MIN_X + CGFloat(width)) {
+        self.position = CGPoint(x: self.position.x - 10, y: self.position.y)
+//        }
     }
 
     func moveRight() {
-        if (self.position.x < MAX_X - CGFloat(width)) {
-            let newXPosition = xPosition + width
-            self.xPosition = newXPosition
-            self.position = CGPoint(x: CGFloat(Float(newXPosition)), y: self.position.y)
-        }
+//        if (self.position.x < MAX_X - CGFloat(width)) {
+            self.position = CGPoint(x: self.position.x + 10, y: self.position.y)
+//        }
     }
 
     func moveDown() {
-        
+        self.position = CGPoint(x: self.position.x, y: self.position.y - 10)
     }
 
     func madeContact() -> Bool {
@@ -48,6 +40,6 @@ class Square: SKSpriteNode, Piece {
     }
 
     private func setPositionTopOfScreen(topY: CGFloat) {
-        self.position = CGPoint(x: CGFloat(Float(xPosition)), y: topY - CGFloat(Float(height)))
+        self.position = CGPoint(x: 0, y: 0)
     }
 }

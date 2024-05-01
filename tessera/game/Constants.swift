@@ -11,17 +11,8 @@ let TILE_SIZE: Int = 20
 let WINDOW_WIDTH: CGFloat = 600.0
 let WINDOW_HEIGHT: CGFloat = 700.0
 let SCORE_PANEL_WIDTH: CGFloat = 200.0
+let BOARD_WIDTH: CGFloat = WINDOW_WIDTH - SCORE_PANEL_WIDTH
+let BOARD_HEIGHT: CGFloat = WINDOW_HEIGHT
 let SCORE_PANEL_HEIGHT: CGFloat  = WINDOW_HEIGHT
-let MIN_X: CGFloat = -WINDOW_WIDTH / 2
-let MAX_X: CGFloat = WINDOW_WIDTH / 2 - SCORE_PANEL_WIDTH
-
-struct BitMask {
-    static let FallingPiece: UInt32 = 0x1
-    static let Static: UInt32 = 0x1 << 1
-    static let All: UInt32 = UInt32.max
-}
-
-struct Velocity {
-    static let Fast = CGVectorMake(0, -400)
-    static let Slow = CGVectorMake(0, -100)
-}
+let MIN_X: CGFloat = -BOARD_WIDTH / 2
+let MAX_X: CGFloat = BOARD_WIDTH / 2

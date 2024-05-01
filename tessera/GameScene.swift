@@ -11,7 +11,7 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
 
-    var board: Board = Board()
+    private var board: Board?
 
     // Make the matrix here to store the board state
     // Pieces should be made of individual suqares so it is easier to remove them later.
@@ -28,15 +28,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(shadeNode)
         addChild(gameOverLabel)
     }
-    
-    public func printHello() -> () {
-        print("Helloooo")
-    }
+
 
     func startGame() {
-        board.initialiseBoard()
-        addChild(board)
-        let makeNextFrameAction: SKAction = SKAction.run { self.printHello() }
+        let boardNode = childNode(withName: "board-node")
+        let scorePanelNode = childNode(withName: "score-panel-node")
+        board = Board(node: boardNode!)
+        let makeNextFrameAction: SKAction = SKAction.run { self.board?.update() }
         let waitAction: SKAction = SKAction.wait(forDuration: 0.25)
         let gameLoopActions: SKAction = SKAction.repeatForever(SKAction.sequence([makeNextFrameAction, waitAction]))
         self.run(gameLoopActions)
@@ -67,10 +65,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         switch event.keyCode {
         case 0x2: // D
-            board.moveRight()
+            board?.moveRight()
             break;
         case 0x0: // A
-            board.moveLeft()
+            board?.moveLeft()
             break;
         case 0x1: // S
             speedUp()

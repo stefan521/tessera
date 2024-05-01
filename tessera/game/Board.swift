@@ -7,14 +7,14 @@
 
 import SpriteKit
 
-class Board: SKSpriteNode {
+class Board {
     
+    private var boardNode: SKNode
     private var currentPiece: Piece?
     private var ruleEnforcer: RuleEnforcer = RuleEnforcer()
     
-    func initialiseBoard() {
-        self.color = NSColor.darkGray
-        self.size = CGSize(width: 100, height: 100)
+    init (node: SKNode) {
+        boardNode = node
     }
 
     func update() -> Bool {
@@ -22,9 +22,9 @@ class Board: SKSpriteNode {
             piece.moveDown()
         } else {
             let piece: Square = Square()
-            piece.initialisePiece(topY: frame.maxY)
+            piece.initialisePiece(topY: boardNode.frame.maxY)
             currentPiece = piece
-            addChild(piece)
+            boardNode.addChild(piece)
         }
 
         if (currentPiece!.madeContact() && ruleEnforcer.isGameOver()) {
