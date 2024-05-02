@@ -21,10 +21,7 @@ class Board {
         if let piece = currentPiece {
             piece.moveDown()
         } else {
-            let piece: Square = Square()
-            piece.initialisePiece(topY: boardNode.frame.maxY)
-            currentPiece = piece
-            boardNode.addChild(piece)
+            generateNextPiece()
         }
 
         if (currentPiece!.madeContact() && ruleEnforcer.isGameOver()) {
@@ -48,10 +45,14 @@ class Board {
         currentPiece?.rotate()
     }
 
-    private func generateNextPiece() {
-        let completeRows = ruleEnforcer.completeRows()
+    private func generateNextPiece() -> Void {
+        // let completeRows = ruleEnforcer.completeRows()
         // delete complete rows
         // update score
         // drop the things sitting on top
-    }
+        let piece: Square = Square()
+        piece.initialisePiece()
+        self.currentPiece = piece
+        boardNode.addChild(piece)
+   }
 }

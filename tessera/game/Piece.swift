@@ -5,9 +5,9 @@
 //  Created by Stefan on 29/04/2024.
 //
 
-import Foundation
+import SpriteKit
 
-protocol Piece {
+protocol Piece: SKSpriteNode {
 
     func rotate() -> Void
 

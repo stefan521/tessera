@@ -8,35 +8,42 @@
 import SpriteKit
 
 class Square: SKSpriteNode, Piece {
+    
+    private let pieceWidth: CGFloat = 40
+    private let pieceHeight: CGFloat = 40
 
-    func initialisePiece(topY: CGFloat) {
+    func initialisePiece() {
         self.color = NSColor.black
-        self.size = CGSize(width: CGFloat(10), height: CGFloat(10))
-        setPositionTopOfScreen(topY: topY)
+        self.size = CGSize(width: CGFloat(pieceWidth), height: CGFloat(pieceHeight))
+        self.position = CGPoint(x: 0, y: MAX_Y)
     }
 
     func moveLeft() {
 //        if (self.position.x > MIN_X + CGFloat(width)) {
-        self.position = CGPoint(x: self.position.x - 10, y: self.position.y)
+        self.position = CGPoint(x: self.position.x - pieceWidth, y: self.position.y)
 //        }
     }
 
     func moveRight() {
 //        if (self.position.x < MAX_X - CGFloat(width)) {
-            self.position = CGPoint(x: self.position.x + 10, y: self.position.y)
+            self.position = CGPoint(x: self.position.x + pieceWidth, y: self.position.y)
 //        }
     }
 
     func moveDown() {
-        self.position = CGPoint(x: self.position.x, y: self.position.y - 10)
+        self.position = CGPoint(x: self.position.x, y: self.position.y - pieceWidth)
     }
 
     func madeContact() -> Bool {
-        return false
+        return hitGround()
     }
 
     func rotate() {
     
+    }
+
+    private func hitGround() -> Bool {
+        return self.position.y <= MIN_Y + pieceHeight
     }
 
     private func setPositionTopOfScreen(topY: CGFloat) {
