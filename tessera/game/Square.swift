@@ -13,25 +13,26 @@ class Square: SKSpriteNode, Piece {
     private let pieceHeight: CGFloat = 40
 
     func initialisePiece() {
+        self.anchorPoint = CGPoint(x: 0, y: 0)
         self.color = NSColor.black
         self.size = CGSize(width: CGFloat(pieceWidth), height: CGFloat(pieceHeight))
-        self.position = CGPoint(x: 0, y: MAX_Y)
+        self.position = CGPoint(x: MAX_X / 2, y: MAX_Y)
     }
 
     func moveLeft() {
-//        if (self.position.x > MIN_X + CGFloat(width)) {
-        self.position = CGPoint(x: self.position.x - pieceWidth, y: self.position.y)
-//        }
+        if (self.position.x > MIN_X) {
+            self.position = CGPoint(x: self.position.x - pieceWidth, y: self.position.y)
+        }
     }
 
     func moveRight() {
-//        if (self.position.x < MAX_X - CGFloat(width)) {
+        if (self.position.x < MAX_X - pieceWidth) {
             self.position = CGPoint(x: self.position.x + pieceWidth, y: self.position.y)
-//        }
+        }
     }
 
     func moveDown() {
-        self.position = CGPoint(x: self.position.x, y: self.position.y - pieceWidth)
+        self.position = CGPoint(x: self.position.x, y: self.position.y - pieceHeight)
     }
 
     func madeContact() -> Bool {
@@ -44,9 +45,5 @@ class Square: SKSpriteNode, Piece {
 
     private func hitGround() -> Bool {
         return self.position.y <= MIN_Y + pieceHeight
-    }
-
-    private func setPositionTopOfScreen(topY: CGFloat) {
-        self.position = CGPoint(x: 0, y: 0)
     }
 }

@@ -27,7 +27,8 @@ class Board {
         if (currentPiece!.madeContact() && ruleEnforcer.isGameOver()) {
             return true
         } else if (currentPiece!.madeContact()) {
-            generateNextPiece()
+//            generateNextPiece()
+            return true
         }
         
         return false

@@ -9,7 +9,7 @@ import SpriteKit
 import GameplayKit
 
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene {
 
     private var board: Board?
 
@@ -21,6 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     public func stopGame() {
+        self.removeAllActions()
         let shadeNode = SKSpriteNode(color: NSColor.black.withAlphaComponent(0.5), size: frame.size)
         let gameOverLabel = SKLabelNode(text: "ΓΑΜΕ OβΕΡ")
         gameOverLabel.fontName = "AvenirNext-Bold"
@@ -34,7 +35,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let boardNode = childNode(withName: "board-node")
         let scorePanelNode = childNode(withName: "score-panel-node")
         board = Board(node: boardNode!)
-        let makeNextFrameAction: SKAction = SKAction.run { self.board?.update() }
+        let makeNextFrameAction: SKAction = SKAction.run {
+            if (self.board!.update()) {
+                self.stopGame()
+            }
+        }
         let waitAction: SKAction = SKAction.wait(forDuration: 0.25)
         let gameLoopActions: SKAction = SKAction.repeatForever(SKAction.sequence([makeNextFrameAction, waitAction]))
         self.run(gameLoopActions)
