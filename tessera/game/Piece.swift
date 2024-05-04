@@ -7,7 +7,9 @@
 
 import SpriteKit
 
-protocol Piece: SKSpriteNode {
+protocol Piece {
+
+    var nodes: Array<SKSpriteNode> { get set }
 
     func rotate() -> Void
 

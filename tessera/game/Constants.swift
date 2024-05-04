@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-let TILE_SIZE: Int = 20
+let TILE_SIZE: CGFloat = 20
 let WINDOW_WIDTH: CGFloat = 600.0
 let WINDOW_HEIGHT: CGFloat = 720.0
 let SCORE_PANEL_WIDTH: CGFloat = 200.0

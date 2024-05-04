@@ -52,8 +52,7 @@ class Board {
         // update score
         // drop the things sitting on top
         let piece: Square = Square()
-        piece.initialisePiece()
         self.currentPiece = piece
-        boardNode.addChild(piece)
+        piece.nodes.forEach { node in boardNode.addChild(node) }
    }
 }

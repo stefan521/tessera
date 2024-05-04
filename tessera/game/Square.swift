@@ -7,32 +7,33 @@
 
 import SpriteKit
 
-class Square: SKSpriteNode, Piece {
-    
-    private let pieceWidth: CGFloat = 40
-    private let pieceHeight: CGFloat = 40
+class Square: Piece {
 
-    func initialisePiece() {
-        self.anchorPoint = CGPoint(x: 0, y: 0)
-        self.color = NSColor.black
-        self.size = CGSize(width: CGFloat(pieceWidth), height: CGFloat(pieceHeight))
-        self.position = CGPoint(x: MAX_X / 2, y: MAX_Y)
+    var nodes: Array<SKSpriteNode> = Array()
+    
+    init () {
+        let node = SKSpriteNode()
+        node.anchorPoint = CGPoint(x: 0, y: 0)
+        node.color = NSColor.black
+        node.size = CGSize(width: TILE_SIZE, height: TILE_SIZE)
+        node.position = CGPoint(x: MAX_X / 2, y: MAX_Y)
+        nodes.append(node)
     }
 
     func moveLeft() {
-        if (self.position.x > MIN_X) {
-            self.position = CGPoint(x: self.position.x - pieceWidth, y: self.position.y)
+        if (nodes.contains { node in node.position.x > MIN_X  }) {
+            nodes.forEach { node in node.position = CGPoint(x: node.position.x - TILE_SIZE, y: node.position.y) }
         }
     }
 
     func moveRight() {
-        if (self.position.x < MAX_X - pieceWidth) {
-            self.position = CGPoint(x: self.position.x + pieceWidth, y: self.position.y)
+        if (nodes.contains(where: { node in node.position.x < MAX_X })) {
+            nodes.forEach { node in node.position = CGPoint(x: node.position.x + TILE_SIZE, y: node.position.y) }
         }
     }
 
     func moveDown() {
-        self.position = CGPoint(x: self.position.x, y: self.position.y - pieceHeight)
+        nodes.forEach { node in node.position = CGPoint(x: node.position.x, y: node.position.y - TILE_SIZE) }
     }
 
     func madeContact() -> Bool {
@@ -44,6 +45,6 @@ class Square: SKSpriteNode, Piece {
     }
 
     private func hitGround() -> Bool {
-        return self.position.y <= MIN_Y + pieceHeight
+        return nodes.contains { node in node.position.y <= MIN_Y + TILE_SIZE }
     }
 }
