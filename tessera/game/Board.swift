@@ -18,20 +18,16 @@ class Board {
     }
 
     func update() -> Bool {
-        if let piece = currentPiece {
-            piece.moveDown()
-        } else {
-            generateNextPiece()
+        let piece = currentPiece ?? generateNextPiece()
+        let pieceMovement = piece.moveDown()
+        
+        if (pieceMovement == Movement.fall) {
+            return false
         }
 
-        if (currentPiece!.madeContact() && ruleEnforcer.isGameOver()) {
-            return true
-        } else if (currentPiece!.madeContact()) {
-//            generateNextPiece()
-            return true
-        }
-        
-        return false
+        generateNextPiece()
+
+        return ruleEnforcer.isGameOver()
     }
 
     func moveLeft() -> Void {
@@ -46,7 +42,7 @@ class Board {
         currentPiece?.rotate()
     }
 
-    private func generateNextPiece() -> Void {
+    private func generateNextPiece() -> Piece {
         // let completeRows = ruleEnforcer.completeRows()
         // delete complete rows
         // update score
@@ -54,5 +50,6 @@ class Board {
         let piece: Square = Square()
         self.currentPiece = piece
         piece.nodes.forEach { node in boardNode.addChild(node) }
+        return piece
    }
 }

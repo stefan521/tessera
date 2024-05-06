@@ -10,3 +10,8 @@ import SpriteKit
 class State {
     
 }
+
+enum Movement {
+    case fall
+    case stop
+}
