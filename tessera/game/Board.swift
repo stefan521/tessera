@@ -12,7 +12,8 @@ class Board {
     private var boardNode: SKNode
     private var currentPiece: Piece?
     private var ruleEnforcer: RuleEnforcer = RuleEnforcer()
-    
+    private var state: State = State()
+
     init (node: SKNode) {
         boardNode = node
     }
@@ -24,6 +25,8 @@ class Board {
         if (pieceMovement == Movement.fall) {
             return false
         }
+
+        piece.nodes.forEach { node in state.setAt(node.position, node) }
 
         generateNextPiece()
 
