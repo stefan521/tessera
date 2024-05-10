@@ -11,11 +11,11 @@ protocol Piece {
 
     var nodes: Array<SKSpriteNode> { get set }
 
-    func rotate() -> Movement
+    func rotate(state: State) -> Movement
 
-    func moveLeft() -> Movement
+    func moveLeft(state: State) -> Movement
 
-    func moveRight() -> Movement
+    func moveRight(state: State) -> Movement
 
-    func moveDown() -> Movement
+    func moveDown(state: State) -> Movement
 }

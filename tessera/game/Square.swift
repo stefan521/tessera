@@ -25,39 +25,46 @@ class Square: Piece {
         return node
     }
 
-    init () {}
-
-    func moveLeft() -> Movement {
+    func moveLeft(state: State) -> Movement {
         if (nodes.allSatisfy { $0.position.x > MIN_X  }) {
             nodes.forEach { node in node.position = CGPoint(x: node.position.x - TILE_SIZE, y: node.position.y) }
         }
 
-        return madeContact()
+        return madeContact(state: state)
     }
 
-    func moveRight() -> Movement {
+    func moveRight(state: State) -> Movement {
         if (nodes.allSatisfy { $0.position.x < MAX_X - TILE_SIZE }) {
             nodes.forEach { node in node.position = CGPoint(x: node.position.x + TILE_SIZE, y: node.position.y) }
         }
 
-        return madeContact()
+        return madeContact(state: state)
     }
 
-    func moveDown() -> Movement {
+    func moveDown(state: State) -> Movement {
         nodes.forEach { node in node.position = CGPoint(x: node.position.x, y: node.position.y - TILE_SIZE) }
-        return madeContact()
+
+        return madeContact(state: state)
     }
 
-    func rotate() -> Movement {
+    func rotate(state: State) -> Movement {
         // TODO
-        return madeContact()
+        return madeContact(state: state)
     }
 
-    private func madeContact() -> Movement {
+    private func madeContact(state: State) -> Movement {
         if (hitGround()) {
             return Movement.stop
         }
-        
+
+        let hitPiece = nodes.contains { node in
+            state.nodeAt(CGPoint(x: node.position.x, y: node.position.y - TILE_SIZE)) != nil
+        }
+
+        if (hitPiece) {
+            return Movement.stop
+        }
+
         return Movement.fall
     }
 

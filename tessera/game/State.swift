@@ -14,10 +14,10 @@ class State: CustomStringConvertible {
     var description: String {
         var str = "***** State *****\n"
         var y = BOARD_HEIGHT
-        while y >= 0 {
+        while y > 0 {
             str += Int(y / TILE_SIZE ).description.padding(toLength: 3, withPad: " ", startingAt: 0)
             var x = 0.0
-            while x <= BOARD_WIDTH {
+            while x < BOARD_WIDTH {
                 let hasTile = positions[key(x, y)].map { $0 != nil } ?? false
                 str += hasTile ? "O" :  "_"
                 x += TILE_SIZE

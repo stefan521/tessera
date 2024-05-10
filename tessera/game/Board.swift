@@ -20,7 +20,7 @@ class Board {
 
     func update() -> Bool {
         let piece = currentPiece ?? generateNextPiece()
-        let pieceMovement = piece.moveDown()
+        let pieceMovement = piece.moveDown(state: state)
         
         if (pieceMovement == Movement.fall) {
             return false
@@ -36,15 +36,15 @@ class Board {
     }
 
     func moveLeft() -> Void {
-        currentPiece?.moveLeft()
+        currentPiece?.moveLeft(state: state)
     }
 
     func moveRight() -> Void {
-        currentPiece?.moveRight()
+        currentPiece?.moveRight(state: state)
     }
 
     func rotate() -> Void {
-        currentPiece?.rotate()
+        currentPiece?.rotate(state: state)
     }
 
     private func generateNextPiece() -> Piece {
