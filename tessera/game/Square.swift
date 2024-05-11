@@ -26,7 +26,9 @@ class Square: Piece {
     }
 
     func moveLeft(state: State) -> Movement {
-        if (nodes.allSatisfy { $0.position.x > MIN_X  }) {
+        if (nodes.allSatisfy { node in
+            node.position.x > MIN_X && state.nodeAt(CGPoint(x: node.position.x - TILE_SIZE, y: node.position.y)) == nil
+        }) {
             nodes.forEach { node in node.position = CGPoint(x: node.position.x - TILE_SIZE, y: node.position.y) }
         }
 
@@ -34,7 +36,9 @@ class Square: Piece {
     }
 
     func moveRight(state: State) -> Movement {
-        if (nodes.allSatisfy { $0.position.x < MAX_X - TILE_SIZE }) {
+        if (nodes.allSatisfy { node in
+            node.position.x < MAX_X - TILE_SIZE && state.nodeAt(CGPoint(x: node.position.x + TILE_SIZE, y: node.position.y)) == nil
+        }) {
             nodes.forEach { node in node.position = CGPoint(x: node.position.x + TILE_SIZE, y: node.position.y) }
         }
 
