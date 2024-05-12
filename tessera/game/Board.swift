@@ -67,7 +67,13 @@ class Board {
     }
 
     private func generateNextPiece() -> Void {
-        self.piece = Square()
+        let randomNumber = Int.random(in: 1...4)
+
+        if randomNumber == 1 { self.piece = Square() }
+        else if randomNumber == 2 {  self.piece = Bar() }
+        else if randomNumber == 3 { self.piece = Tau() }
+        else { self.piece = Zeta() }
+
         self.piece!.nodes.forEach { node in boardNode.addChild(node) }
    }
 }
