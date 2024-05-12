@@ -39,6 +39,10 @@ class State: CustomStringConvertible {
         return positions[key(point.x, point.y)] ?? Optional.none
     }
 
+    func isFree(_ point: CGPoint) -> Bool {
+        return nodeAt(point) == nil
+    }
+
     func clearAt(_ point: CGPoint) -> Void {
         positions.updateValue(Optional.none, forKey: key(point.x, point.y))
     }
