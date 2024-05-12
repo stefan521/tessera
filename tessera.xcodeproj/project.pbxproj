@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD04D4382BE03B96004E0FF2 /* RuleEnforcer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04D4342BE03B96004E0FF2 /* RuleEnforcer.swift */; };
 		CD04D4392BE03B96004E0FF2 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04D4352BE03B96004E0FF2 /* Piece.swift */; };
 		CD04D43A2BE03B96004E0FF2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04D4362BE03B96004E0FF2 /* Board.swift */; };
 		CD04D43B2BE03B96004E0FF2 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD04D4372BE03B96004E0FF2 /* State.swift */; };
@@ -43,7 +42,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CD04D4342BE03B96004E0FF2 /* RuleEnforcer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleEnforcer.swift; sourceTree = "<group>"; };
 		CD04D4352BE03B96004E0FF2 /* Piece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
 		CD04D4362BE03B96004E0FF2 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		CD04D4372BE03B96004E0FF2 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
@@ -95,7 +93,6 @@
 			children = (
 				CD04D4362BE03B96004E0FF2 /* Board.swift */,
 				CD04D4352BE03B96004E0FF2 /* Piece.swift */,
-				CD04D4342BE03B96004E0FF2 /* RuleEnforcer.swift */,
 				CD04D4372BE03B96004E0FF2 /* State.swift */,
 				CD7E6F262BA974C9000BAE01 /* Square.swift */,
 				CD7E6F292BA9769A000BAE01 /* Constants.swift */,
@@ -290,7 +287,6 @@
 			files = (
 				CD7E6F2A2BA9769A000BAE01 /* Constants.swift in Sources */,
 				CD04D4392BE03B96004E0FF2 /* Piece.swift in Sources */,
-				CD04D4382BE03B96004E0FF2 /* RuleEnforcer.swift in Sources */,
 				CD7E6F272BA974C9000BAE01 /* Square.swift in Sources */,
 				CDDAAE142BA7454000831FC7 /* ViewController.swift in Sources */,
 				CD04D43B2BE03B96004E0FF2 /* State.swift in Sources */,

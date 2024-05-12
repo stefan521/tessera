@@ -10,8 +10,7 @@ import SpriteKit
 class Board {
     
     private var boardNode: SKNode
-    private var currentPiece: Piece?
-    private var ruleEnforcer: RuleEnforcer = RuleEnforcer()
+    private var piece: Piece?
     private var state: State = State()
 
     init (node: SKNode) {
@@ -19,42 +18,46 @@ class Board {
     }
 
     func update() -> Bool {
-        let piece = currentPiece ?? generateNextPiece()
-        let pieceMovement = piece.moveDown(state: state)
-        
-        if (pieceMovement == Movement.fall) {
-            return false
+        if (piece == nil) {
+            generateNextPiece()
         }
 
-        piece.nodes.forEach { node in state.setAt(node.position, node) }
+        let movement = piece!.moveDown(state: state)
 
-        generateNextPiece()
-        
-        print(state)
+        if (movement == Movement.stop && isGameOver()) {
+            return true
+        }
 
-        return ruleEnforcer.isGameOver()
+        if (movement == Movement.stop) {
+            piece!.nodes.forEach { node in state.setAt(node.position, node) }
+
+            generateNextPiece()
+            
+            print(state)
+        }
+
+        return false
     }
 
     func moveLeft() -> Void {
-        currentPiece?.moveLeft(state: state)
+        let movement = piece?.moveLeft(state: state)
     }
 
     func moveRight() -> Void {
-        currentPiece?.moveRight(state: state)
+        let movement = piece?.moveRight(state: state)
     }
 
     func rotate() -> Void {
-        currentPiece?.rotate(state: state)
+        let movement = piece?.rotate(state: state)
+    }
+    
+    private func isGameOver() -> Bool {
+        // TODO
+        return false
     }
 
-    private func generateNextPiece() -> Piece {
-        // let completeRows = ruleEnforcer.completeRows()
-        // delete complete rows
-        // update score
-        // drop the things sitting on top
-        let piece: Square = Square()
-        self.currentPiece = piece
-        piece.nodes.forEach { node in boardNode.addChild(node) }
-        return piece
+    private func generateNextPiece() -> Void {
+        self.piece = Square()
+        self.piece!.nodes.forEach { node in boardNode.addChild(node) }
    }
 }

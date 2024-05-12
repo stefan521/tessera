@@ -10,25 +10,20 @@ import SpriteKit
 class State: CustomStringConvertible {
     
     private var positions: Dictionary<String, Optional<SKNode>> = [:]
+    private let horizontal = (0...Int(BOARD_WIDTH / TILE_SIZE) - 1).map { $0 * Int(TILE_SIZE) }
+    private let vertical = (0...Int(BOARD_HEIGHT / TILE_SIZE) - 1).map { $0 * Int(TILE_SIZE) }
 
     var description: String {
-        var str = "***** State *****\n"
-        var y = BOARD_HEIGHT
-        while y > 0 {
-            str += Int(y / TILE_SIZE ).description.padding(toLength: 3, withPad: " ", startingAt: 0)
-            var x = 0.0
-            while x < BOARD_WIDTH {
+        var stringState = "********************\n"
+        for y in vertical {
+            var row = ""
+            for x in horizontal {
                 let hasTile = positions[key(x, y)].map { $0 != nil } ?? false
-                str += hasTile ? "O" :  "_"
-                x += TILE_SIZE
+                row +=  hasTile ? "O" :  "_"
             }
-            str += "\n"
-            y -= TILE_SIZE
+            stringState = "\(row)\n\(stringState)"
         }
-
-        str += "*****************\n"
-        
-        return str
+        return "****** State *******\n" + stringState
     }
 
     init () {
@@ -38,38 +33,31 @@ class State: CustomStringConvertible {
     func isFree(_ point: CGPoint) -> Bool {
         return positions[key(point.x, point.y)] ?? Optional.none == nil
     }
-
-    func clearAt(_ point: CGPoint) -> Void {
-        positions.updateValue(Optional.none, forKey: key(point.x, point.y))
-    }
-
-    func clearRow(_ row: Int) -> Void {
-        // TODO
+    
+    func clearCompletedRows() -> Void {
+        for x in horizontal {
+            for y in vertical {
+                // TODO
+                let k = key(x, y)
+            }
+        }
     }
 
     func setAt(_ point: CGPoint, _ node: SKNode) -> Void {
         positions.updateValue(node, forKey: key(point.x, point.y))
     }
-    
+
     private func buildPositions() -> Void {
-        var x = 0.0
-
-        while x < BOARD_WIDTH {
-            var y = 0.0
-
-            while y < BOARD_HEIGHT {
-                positions.updateValue(Optional.none, forKey: key(x, y))
-                y += TILE_SIZE
+        for x in horizontal {
+            for y in vertical {
+                positions[key(x, y)] = Optional.none
             }
-
-            x += TILE_SIZE
         }
     }
 
-    private func key(_ x: CGFloat, _ y: CGFloat) -> String {
-        let ts = Int(TILE_SIZE)
-        return "(\(Int(x) / ts),\(Int(y) / ts)"
-    }
+    private func key(_ x: Int, _ y: Int) -> String { return "(\(x / Int(TILE_SIZE)),\(y / Int(TILE_SIZE))" }
+
+    private func key(_ x: CGFloat, _ y: CGFloat) -> String { return key(Int(x), Int(y)) }
 }
 
 enum Movement {
