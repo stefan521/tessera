@@ -35,12 +35,8 @@ class State: CustomStringConvertible {
         buildPositions()
     }
 
-    func nodeAt(_ point: CGPoint) -> Optional<SKNode> {
-        return positions[key(point.x, point.y)] ?? Optional.none
-    }
-
     func isFree(_ point: CGPoint) -> Bool {
-        return nodeAt(point) == nil
+        return positions[key(point.x, point.y)] ?? Optional.none == nil
     }
 
     func clearAt(_ point: CGPoint) -> Void {
@@ -71,7 +67,8 @@ class State: CustomStringConvertible {
     }
 
     private func key(_ x: CGFloat, _ y: CGFloat) -> String {
-        return "(\(Int(x)),\(Int(y)))"
+        let ts = Int(TILE_SIZE)
+        return "(\(Int(x) / ts),\(Int(y) / ts)"
     }
 }
 

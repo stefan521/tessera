@@ -34,7 +34,9 @@ extension Piece {
     }
 
     func moveDown(state: State) -> Movement {
-        nodes.forEach { node in node.position = below(node.position) }
+        if (nodes.allSatisfy { n in state.isFree(below(n.position))}) {
+            nodes.forEach { node in node.position = below(node.position) }
+        }
 
         return madeContact(state: state)
     }
