@@ -19,7 +19,6 @@ class Square: Piece {
     var nodes: Array<SKSpriteNode> =  makeFourNodes(positions: Square.initialPositions, colour: NSColor.black)
 
     func rotate(state: State) -> Movement {
-        // TODO
         return madeContact(state: state)
     }
 }

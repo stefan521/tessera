@@ -67,17 +67,24 @@ class GameScene: SKScene {
         }
 
         switch event.keyCode {
-        case 0x2: // D
+        case 2: // D
             if (board!.moveRight()) { self.stopGame() }
             break;
-        case 0x0: // As
+        case 0: // A
             if (board!.moveLeft()) { self.stopGame() }
             break;
-        case 0x1: // S
+        case 1: // S
             fastFall()
             break;
+        case 15: // R
+            if (board!.rotate()) { self.stopGame() }
+            break;
+        case 49: // Space
+            break;
+        case 5: // P
+            break;
         default:
-//            print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
+            print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
             break;
         }
     }

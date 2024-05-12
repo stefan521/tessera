@@ -34,7 +34,7 @@ extension Piece {
     }
 
     func moveDown(state: State) -> Movement {
-        if (nodes.allSatisfy { n in state.isFree(below(n.position))}) {
+        if (nodes.allSatisfy { n in n.position.y > MIN_Y && state.isFree(below(n.position))}) {
             nodes.forEach { node in node.position = below(node.position) }
         }
 
@@ -43,6 +43,10 @@ extension Piece {
 
     func below(_ point: CGPoint) -> CGPoint {
         return CGPoint(x: point.x, y: point.y - TILE_SIZE)
+    }
+
+    func above(_ point: CGPoint) -> CGPoint {
+        return CGPoint(x: point.x, y: point.y + TILE_SIZE)
     }
 
     func left(_ point: CGPoint) -> CGPoint {

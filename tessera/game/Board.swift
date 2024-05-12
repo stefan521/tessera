@@ -12,6 +12,7 @@ class Board {
     private var boardNode: SKNode
     private var piece: Piece?
     private var state: State = State()
+    private var delay: Int = 0
 
     init (node: SKNode) {
         boardNode = node
@@ -68,11 +69,13 @@ class Board {
 
     private func generateNextPiece() -> Void {
         let randomNumber = Int.random(in: 1...4)
+//        
+//        if randomNumber == 1 { self.piece = Square() }
+//        else if randomNumber == 2 {  self.piece = Bar() }
+//        else if randomNumber == 3 { self.piece = Tau() }
+//        else { self.piece = Zeta() }
 
-        if randomNumber == 1 { self.piece = Square() }
-        else if randomNumber == 2 {  self.piece = Bar() }
-        else if randomNumber == 3 { self.piece = Tau() }
-        else { self.piece = Zeta() }
+        self.piece = Tau()
 
         self.piece!.nodes.forEach { node in boardNode.addChild(node) }
    }
