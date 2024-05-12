@@ -68,10 +68,10 @@ class GameScene: SKScene {
 
         switch event.keyCode {
         case 0x2: // D
-            board?.moveRight()
+            if (board!.moveRight()) { self.stopGame() }
             break;
-        case 0x0: // A
-            board?.moveLeft()
+        case 0x0: // As
+            if (board!.moveLeft()) { self.stopGame() }
             break;
         case 0x1: // S
             fastFall()

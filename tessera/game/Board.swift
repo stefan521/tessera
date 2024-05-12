@@ -40,20 +40,29 @@ class Board {
         return false
     }
 
-    func moveLeft() -> Void {
+    func moveLeft() -> Bool {
         let movement = piece?.moveLeft(state: state)
+        if movement == Movement.stop && isGameOver() { return true }
+        return false
     }
 
-    func moveRight() -> Void {
+    func moveRight() -> Bool {
         let movement = piece?.moveRight(state: state)
+        if movement == Movement.stop && isGameOver() { return true }
+        return false
     }
 
-    func rotate() -> Void {
+    func rotate() -> Bool {
         let movement = piece?.rotate(state: state)
+        if movement == Movement.stop && isGameOver() { return true }
+        return false
     }
     
     private func isGameOver() -> Bool {
-        // TODO
+        if let currentPiece = piece {
+            return currentPiece.nodes.contains { $0.position.y > MAX_Y }
+        }
+
         return false
     }
 
