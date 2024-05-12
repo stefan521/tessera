@@ -41,7 +41,27 @@ class State: CustomStringConvertible {
             }
         }
 
+        dropSuspendedRows()
+
         return removedNodes
+    }
+
+    func dropSuspendedRows() -> Void {
+        for y in vertical.dropFirst() {
+            let nonEmptyRow = horizontal.contains { x in positions[key(x, y)] != nil }
+            let canDrop = horizontal.allSatisfy { x in positions[key(x, y - 1)] == nil }
+
+            if (nonEmptyRow && canDrop) {
+                horizontal.forEach { x in
+                    if let node = positions[key(x, y)] {
+                        node.position = CGPoint(x: node.position.x, y: node.position.y - TILE_SIZE)
+                        positions[key(x, y - 1)] = node
+                        positions[key(x, y)] = Optional.none
+                    }
+                }
+                dropSuspendedRows()
+            }
+        }
     }
 
     func setAt(_ point: CGPoint, _ node: SKNode) -> Void {

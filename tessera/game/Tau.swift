@@ -92,7 +92,7 @@ class Tau: Piece {
         if (rotation != 180) {
             return
         }
-        
+
         if (
             state.isFree(above(nodes[3].position)) &&
             state.isFree(left(nodes[3].position)) &&
