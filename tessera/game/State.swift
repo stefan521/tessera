@@ -9,7 +9,7 @@ import SpriteKit
 
 class State: CustomStringConvertible {
     
-    private var positions: Dictionary<String, Optional<SKNode>> = [:]
+    private var positions: Dictionary<String, SKNode> = [:]
     private let horizontal = (0...Int(BOARD_WIDTH / TILE_SIZE) - 1).map { $0 * Int(TILE_SIZE) }
     private let vertical = (0...Int(BOARD_HEIGHT / TILE_SIZE) - 1).map { $0 * Int(TILE_SIZE) }
 
@@ -18,28 +18,20 @@ class State: CustomStringConvertible {
         for y in vertical {
             var row = ""
             for x in horizontal {
-                let hasTile = positions[key(x, y)].map { $0 != nil } ?? false
-                row +=  hasTile ? "O" :  "_"
+                row += positions[key(x, y)] != nil ? "O" :  "_"
             }
             stringState = "\(row)\n\(stringState)"
         }
         return "****** State *******\n" + stringState
     }
 
-    init () {
-        buildPositions()
-    }
+    func isFree(_ point: CGPoint) -> Bool { return positions[key(point.x, point.y)] == nil }
 
-    func isFree(_ point: CGPoint) -> Bool {
-        return positions[key(point.x, point.y)] ?? Optional.none == nil
-    }
-    
     func clearCompletedRows() -> Void {
-        for x in horizontal {
-            for y in vertical {
-                // TODO
-                let k = key(x, y)
-            }
+        for y in vertical {
+            var tilesOnRow = 0
+            for x in horizontal { if positions[key(x, y)] != nil { tilesOnRow += 1 } }
+            if tilesOnRow == horizontal.count { clearRow(y) }
         }
     }
 
@@ -47,13 +39,7 @@ class State: CustomStringConvertible {
         positions.updateValue(node, forKey: key(point.x, point.y))
     }
 
-    private func buildPositions() -> Void {
-        for x in horizontal {
-            for y in vertical {
-                positions[key(x, y)] = Optional.none
-            }
-        }
-    }
+    private func clearRow(_ y: Int) -> Void { for x in horizontal { positions.removeValue(forKey: key(x, y)) } }
 
     private func key(_ x: Int, _ y: Int) -> String { return "(\(x / Int(TILE_SIZE)),\(y / Int(TILE_SIZE))" }
 

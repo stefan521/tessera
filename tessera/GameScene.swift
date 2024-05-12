@@ -30,33 +30,31 @@ class GameScene: SKScene {
         addChild(gameOverLabel)
     }
 
+    func nextFrameAction() -> SKAction {
+        return SKAction.run {
+            if self.board!.update() { self.stopGame() }
+        }
+    }
 
     func startGame() {
         let boardNode = childNode(withName: "board-node")
-        let scorePanelNode = childNode(withName: "score-panel-node")
+//        let scorePanelNode = childNode(withName: "score-panel-node")
         board = Board(node: boardNode!)
-        let makeNextFrameAction: SKAction = SKAction.run {
-            if (self.board!.update()) {
-                self.stopGame()
-            }
-        }
-        let waitAction: SKAction = SKAction.wait(forDuration: 0.25)
-        let gameLoopActions: SKAction = SKAction.repeatForever(SKAction.sequence([makeNextFrameAction, waitAction]))
+        slowFall()
+    }
+
+    func fastFall() {
+        let waitAction: SKAction = SKAction.wait(forDuration: 0.05)
+        let gameLoopActions: SKAction = SKAction.repeatForever(SKAction.sequence([nextFrameAction(), waitAction]))
+        self.removeAllActions()
         self.run(gameLoopActions)
     }
-    
-    // Remove the action from the current node and add a fast one (0.25)
-    func speedUp() {
-        
-    }
 
-    // Remove the wait action form the current node and add a slow one (0.5)
-    func slowDown() {
-        
-    }
-
-    func nextFrame() {
-        
+    func slowFall() {
+        let waitAction: SKAction = SKAction.wait(forDuration: 0.25)
+        let gameLoopActions: SKAction = SKAction.repeatForever(SKAction.sequence([nextFrameAction(), waitAction]))
+        self.removeAllActions()
+        self.run(gameLoopActions)
     }
 
     override func didMove(to view: SKView) {
@@ -76,7 +74,7 @@ class GameScene: SKScene {
             board?.moveLeft()
             break;
         case 0x1: // S
-            speedUp()
+            fastFall()
             break;
         default:
 //            print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
@@ -87,7 +85,7 @@ class GameScene: SKScene {
     override func keyUp(with event: NSEvent) {
         switch event.keyCode {
         case 0x01: // S
-            slowDown()
+            slowFall()
             break;
         default:
             break;
