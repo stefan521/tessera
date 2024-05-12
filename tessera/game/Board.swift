@@ -32,8 +32,9 @@ class Board {
             piece!.nodes.forEach { node in state.setAt(node.position, node) }
 
             generateNextPiece()
-            
-            print(state)
+
+            let nodesToRemove = state.clearCompletedRows()
+            boardNode.removeChildren(in: nodesToRemove)
         }
 
         return false

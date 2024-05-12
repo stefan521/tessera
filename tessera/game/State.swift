@@ -27,12 +27,21 @@ class State: CustomStringConvertible {
 
     func isFree(_ point: CGPoint) -> Bool { return positions[key(point.x, point.y)] == nil }
 
-    func clearCompletedRows() -> Void {
+    func clearCompletedRows() -> Array<SKNode> {
+        var removedNodes: Array<SKNode> = []
+
         for y in vertical {
-            var tilesOnRow = 0
-            for x in horizontal { if positions[key(x, y)] != nil { tilesOnRow += 1 } }
-            if tilesOnRow == horizontal.count { clearRow(y) }
+            var nodesOnRow: Array<SKNode> = []
+
+            for x in horizontal { positions[key(x, y)].map { n in nodesOnRow.append(n)} }
+
+            if nodesOnRow.count == horizontal.count {
+                removedNodes.append(contentsOf: nodesOnRow)
+                clearRow(y)
+            }
         }
+
+        return removedNodes
     }
 
     func setAt(_ point: CGPoint, _ node: SKNode) -> Void {
