@@ -686,12 +686,12 @@
                 <windowController id="B8D-0N-5wS" sceneMemberID="viewController">
                     <window key="window" title="tessera" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-                        <rect key="contentRect" x="561" y="180" width="600" height="850"/>
+                        <rect key="contentRect" x="561" y="180" width="600" height="720"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <value key="minSize" type="size" width="600" height="850"/>
-                        <value key="maxSize" type="size" width="600" height="850"/>
-                        <value key="minFullScreenContentSize" type="size" width="600" height="850"/>
-                        <value key="maxFullScreenContentSize" type="size" width="700" height="1000"/>
+                        <value key="minSize" type="size" width="600" height="720"/>
+                        <value key="maxSize" type="size" width="600" height="720"/>
+                        <value key="minFullScreenContentSize" type="size" width="600" height="720"/>
+                        <value key="maxFullScreenContentSize" type="size" width="700" height="720"/>
                         <contentBorderThickness minY="32"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="98r-iN-zZc"/>

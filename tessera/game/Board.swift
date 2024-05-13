@@ -9,13 +9,16 @@ import SpriteKit
 
 class Board {
     
+    private var scoreNode: SKLabelNode
     private var boardNode: SKNode
     private var piece: Piece?
     private var state: State = State()
-    private var delay: Int = 0
+    private var score = 0
 
-    init (node: SKNode) {
-        boardNode = node
+    init (boardSKNode: SKNode, scoreLabel: SKNode) {
+        boardNode = boardSKNode
+        scoreNode = (scoreLabel as! SKLabelNode)
+        updateScore([])
     }
 
     func update() -> Bool {
@@ -36,9 +39,15 @@ class Board {
 
             let nodesToRemove = state.clearCompletedRows()
             boardNode.removeChildren(in: nodesToRemove)
+            updateScore(nodesToRemove)
         }
 
         return false
+    }
+
+    func updateScore(_ removedNodes: Array<SKNode>) -> Void {
+        score += removedNodes.count
+        scoreNode.text = score.description
     }
 
     func moveLeft() -> Bool {
@@ -74,7 +83,7 @@ class Board {
         else if randomNumber == 2 {  self.piece = Bar() }
         else if randomNumber == 3 { self.piece = Tau() }
         else { self.piece = Zeta() }
-
+        
         self.piece!.nodes.forEach { node in boardNode.addChild(node) }
    }
 }

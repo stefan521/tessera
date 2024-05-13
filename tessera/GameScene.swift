@@ -38,8 +38,8 @@ class GameScene: SKScene {
 
     func startGame() {
         let boardNode = childNode(withName: "board-node")
-//        let scorePanelNode = childNode(withName: "score-panel-node")
-        board = Board(node: boardNode!)
+        let scoreLabel = childNode(withName: "score-panel")?.childNode(withName: "score-label")
+        board = Board(boardSKNode: boardNode!, scoreLabel: scoreLabel!)
         slowFall()
     }
 
@@ -80,8 +80,6 @@ class GameScene: SKScene {
             if (board!.rotate()) { self.stopGame() }
             break;
         case 49: // Space
-            break;
-        case 5: // P
             break;
         default:
             print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
