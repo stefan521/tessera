@@ -18,7 +18,7 @@ class Bar: Piece {
         CGPoint(x: MAX_X / 2, y: MAX_Y - TILE_SIZE * 2)
     ]
 
-    var nodes: Array<SKSpriteNode> = makeFourNodes(positions: Bar.initialPositions, colour: NSColor.systemIndigo)
+    var nodes: Array<SKSpriteNode> = makeFourNodes(positions: Bar.initialPositions, colour: NSColor.systemTeal)
 
     func rotate(state: State) -> Movement {
         if (isVertical) { makeHorizontal(state: state) }

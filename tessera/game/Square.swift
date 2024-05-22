@@ -16,7 +16,7 @@ class Square: Piece {
         CGPoint(x: MAX_X / 2 + TILE_SIZE, y: MAX_Y + TILE_SIZE)
     ]
 
-    var nodes: Array<SKSpriteNode> =  makeFourNodes(positions: Square.initialPositions, colour: NSColor.black)
+    var nodes: Array<SKSpriteNode> =  makeFourNodes(positions: Square.initialPositions, colour: NSColor.red)
 
     func rotate(state: State) -> Movement {
         return madeContact(state: state)

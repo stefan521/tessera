@@ -18,7 +18,7 @@ class Zeta: Piece {
         CGPoint(x: MAX_X / 2 + TILE_SIZE * 2, y: MAX_Y - TILE_SIZE)
     ]
 
-    var nodes: Array<SKSpriteNode> = makeFourNodes(positions: Zeta.initialPositions, colour: NSColor.purple)
+    var nodes: Array<SKSpriteNode> = makeFourNodes(positions: Zeta.initialPositions, colour: NSColor.orange)
 
     func rotate(state: State) -> Movement {
         if (isVertical) { makeHorizontal(state: state) }

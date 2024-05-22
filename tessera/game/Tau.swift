@@ -18,7 +18,7 @@ class Tau: Piece {
         CGPoint(x: MAX_X / 2 + TILE_SIZE, y: MAX_Y + TILE_SIZE)
     ]
 
-    var nodes: Array<SKSpriteNode> = makeFourNodes(positions: Tau.initialPositions, colour: NSColor.systemBlue)
+    var nodes: Array<SKSpriteNode> = makeFourNodes(positions: Tau.initialPositions, colour: NSColor.green)
 
     func rotate(state: State) -> Movement {
         if (rotation == 0) {
